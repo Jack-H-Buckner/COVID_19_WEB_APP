@@ -14,7 +14,7 @@ library(leaflet.extras)
 library(RColorBrewer)
 library(maps)
 library(htmltools)
-
+library(ggplot2)
 
 
 ###-----------------------
@@ -73,7 +73,7 @@ FULL_MAP_DATA_counties <- FULL_MAP_DATA_counties[order(FULL_MAP_DATA_counties$Co
 
 
 
-library(ggplot2)
+
 plot_time_series <- function(state){
   p<-ggplot(data=COVID_19_t_series_dates_march9, aes_string(x="dates", y=state)) +
     geom_bar(stat="identity", fill = "red")+
@@ -271,7 +271,6 @@ Crossection_COVID_19 <- merge(Crossection_COVID_19, STATE_VARIABLES, "state")
 # Map dots
 
 X_max <- 37800 
-print(X_max)
 a <- 5
 b <- 0.002
 off_set <- 10000.0
@@ -483,23 +482,6 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                 
                 
                 
-                # row with map and control
-                
-                
-                
-                # row time series and histograms
-                
-                
-                
-                #    mainPanel(
-                #      leafletOutput(outputId = "mymap"))),
-                #
-                #      fluidRow(column(3,
-                #                      plotOutput(outputId ="plot1")),
-                #               column(3,
-                #                      plotOutput(outputId ="plot1"))
-                #               )
-                #)
                 )
 
 
