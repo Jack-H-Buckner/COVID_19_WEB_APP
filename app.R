@@ -28,8 +28,6 @@ RECENT_CASES <- read.csv("data/RECENT_CASES_app.csv")
 STATE_VARIABLES <- read.csv("data/POPULATION_DENSITY_app.csv")
 FULL_MAP_DATA <- read.csv("data/FULL_DATA.csv")
 
-FULL_MAP_DATA <- FULL_MAP_DATA[order(FULL_MAP_DATA$Confirmed),]
-
 
 # update this daily
 dates <- seq(as.Date("2020-1-22"), as.Date("2020-03-27"), by="days")
@@ -53,15 +51,13 @@ df <- FULL_MAP_DATA
 
 FULL_MAP_DATA_states <- subset(df, Admin2 == "Total" &Admin2 != "Unassigned" & as.character(date) == "3/27/20" & Confirmed > 1 )
 
-FULL_MAP_DATA_states <- FULL_MAP_DATA_states[order(FULL_MAP_DATA_states$Confirmed),]
-
+print(FULL_MAP_DATA_states)
 
 
 
 FULL_MAP_DATA_counties <- subset(df, Admin2 != "Total" &Admin2 != "Unassigned" & as.character(date) == "3/27/20" & Confirmed > 1 )
 
-FULL_MAP_DATA_counties <- FULL_MAP_DATA_counties[order(FULL_MAP_DATA_counties$Confirmed),]
-
+#print(FULL_MAP_DATA_counties)
 
 
 
@@ -94,7 +90,7 @@ plot_log_time_series <- function(state){
   
   return(p)
 }
-plot_time_series("Washington")
+
 
 
 
@@ -121,6 +117,8 @@ R_naught <- function(state){
   return(exp(mod$coefficients[2]))
   #return(exp(lmodel$coefficients[2]))
 }
+
+
 R_naught_five_most_recent <- function(state){
   mod <- glm(COVID_19_t_series_dates_most_recent[[state]] ~ as.numeric(COVID_19_t_series_dates_most_recent$dates), family = "poisson")
   
@@ -128,13 +126,13 @@ R_naught_five_most_recent <- function(state){
   #lmodel <- lm(log(COVID_19_t_series_dates_most_recent[[state]]+0.1) ~ COVID_19_t_series_dates_most_recent$dates)
   #return(exp(lmodel$coefficients[2]))
 }
-R_naught("Texas")
-R_naught_five_most_recent("Texas")
+
 
 R0_ls <- c()
 R0_recent_ls <- c()
 doubling_time_ls <- c()
 doubling_time_recent_ls <- c()
+
 for(name in names(COVID_19_t_series_dates_march9)){
   if( name == "dates"){}else{if(name == "US"){}else{
     R0_ls <- append(R0_ls,R_naught(name)[[1]])
