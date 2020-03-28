@@ -50,11 +50,15 @@ COVID_19_t_series_dates_most_recent <- subset(COVID_19_t_series_dates, dates > a
 
 df <- FULL_MAP_DATA 
 
-FULL_MAP_DATA_states <- subset(df, Admin2 == "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-27" & Confirmed > 1 )
+
+FULL_MAP_DATA_states <- subset(df, Admin2 == "Total" &Admin2 != "Unassigned" & as.character(date) == "3/27/20" & Confirmed > 1 )
 
 FULL_MAP_DATA_states <- FULL_MAP_DATA_states[order(FULL_MAP_DATA_states$Confirmed),]
 
-FULL_MAP_DATA_counties <- subset(df, Admin2 != "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-27" & Confirmed > 1 )
+
+
+
+FULL_MAP_DATA_counties <- subset(df, Admin2 != "Total" &Admin2 != "Unassigned" & as.character(date) == "3/27/20" & Confirmed > 1 )
 
 FULL_MAP_DATA_counties <- FULL_MAP_DATA_counties[order(FULL_MAP_DATA_counties$Confirmed),]
 
