@@ -32,7 +32,7 @@ FULL_MAP_DATA <- FULL_MAP_DATA[order(FULL_MAP_DATA$Confirmed),]
 
 
 # update this daily
-dates <- seq(as.Date("2020-1-22"), as.Date("2020-03-26"), by="days")
+dates <- seq(as.Date("2020-1-22"), as.Date("2020-03-27"), by="days")
 
 
 COVID_19_t_series_dates <- COVID_19_t_series
@@ -50,11 +50,11 @@ COVID_19_t_series_dates_most_recent <- subset(COVID_19_t_series_dates, dates > a
 
 df <- FULL_MAP_DATA 
 
-FULL_MAP_DATA_states <- subset(df, Admin2 == "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-26" & Confirmed > 1 )
+FULL_MAP_DATA_states <- subset(df, Admin2 == "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-27" & Confirmed > 1 )
 
 FULL_MAP_DATA_states <- FULL_MAP_DATA_states[order(FULL_MAP_DATA_states$Confirmed),]
 
-FULL_MAP_DATA_counties <- subset(df, Admin2 != "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-26" & Confirmed > 1 )
+FULL_MAP_DATA_counties <- subset(df, Admin2 != "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-27" & Confirmed > 1 )
 
 FULL_MAP_DATA_counties <- FULL_MAP_DATA_counties[order(FULL_MAP_DATA_counties$Confirmed),]
 
@@ -318,20 +318,20 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                              helpText("
                                       This interactive map tracks the number of cases of COVID-19 and
                                       rate at which cases are increasing throught the United States. Select
-                                      a state to see the number of current cases, growth rate of cases and 
-                                      projected time for the number of cases to double. The size and color of 
+                                      a state to see the number of Cases, a five day forcast and other epidemiological data. The size and color of 
                                       the labels can be adjusted to visualize the growth rate and/ or number
                                       of current cases. Darker dots represent faster growth rates. 
                                       "),
                              helpText("
-                                      Growth of the disease is close to exponential in all states leading to
-                                      rapid increases in the number of cases. The growth rate is given as a 
+                                      Growth of the disease is close to exponential in all states and countied. The growth rate 
+                                      is measured here as 
                                       a percentage increase per day. For example, if a state had a growth rate of
                                       100% the number of cases would double every day. The fastest rates of growth 
-                                      currently are in Mississippi and West Viriginia at 50% and 54%.
+                                      currently are in Missouri and West Viriginia at 44%.
                                       "),
                              helpText("
-                                      Growth rates are not shown for locations with fewer than 20 cases.
+                                      The outer ring around the markers is proportional to the number of
+                                      cases there will be in five days if current rates of growth continue.
                                       "),
                              helpText("
                                       The data presented here is from The Johns Hoptkins Covid research program and can be
@@ -520,7 +520,7 @@ server <- function(input, output) {
   
   content <- paste("<font size='4'> <b>",FULL_MAP_DATA$Province_State,"</b> </font>","</br>",
                    "<b>Cases:</b>",FULL_MAP_DATA$Confirmed, "</br>",
-                   "<b>Cases in 5 days</b>", round(FULL_MAP_DATA$Five_day_predication,0), "</br>",
+                   "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA$Five_day_predication,0), "</br>",
                    "<b>Deaths:</b>", FULL_MAP_DATA$Deaths, "</br>",
                    "<b>Growth rate:</b>", round(FULL_MAP_DATA$growth,1),
                    "%  per day", "</br>",
@@ -647,7 +647,7 @@ server <- function(input, output) {
       
       content <- paste("<font size='4'> <b>",FULL_MAP_DATA_states$Province_State,"</b> </font>","</br>",
                        "<b>Cases:</b>",FULL_MAP_DATA_states$Confirmed, "</br>",
-                       "<b>Cases in 5 days</b>", round(FULL_MAP_DATA_states$Five_day_predication,0), "</br>",
+                       "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA_states$Five_day_predication,0), "</br>",
                        "<b>Deaths:</b>", FULL_MAP_DATA_states$Deaths, "</br>",
                        "<b>Growth rate:</b>", round(FULL_MAP_DATA_states$growth,1),
                        "%  per day", "</br>",
@@ -744,7 +744,7 @@ server <- function(input, output) {
       
       content <- paste("<font size='4'> <b>",FULL_MAP_DATA_states$Province_State,"</b> </font>","</br>",
                        "<b>Cases:</b>",FULL_MAP_DATA_states$Confirmed, "</br>",
-                       "<b>Cases in 5 days</b>", round(FULL_MAP_DATA_states$Five_day_predication,0), "</br>",
+                       "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA_states$Five_day_predication,0), "</br>",
                        "<b>Deaths:</b>", FULL_MAP_DATA_states$Deaths, "</br>",
                        "<b>Growth rate:</b>", round(FULL_MAP_DATA_states$growth,1),
                        "%  per day", "</br>",
@@ -793,7 +793,7 @@ server <- function(input, output) {
       
       content <- paste("<font size='4'> <b>",FULL_MAP_DATA_states$Province_State,"</b> </font>","</br>",
                        "<b>Cases:</b>",FULL_MAP_DATA_states$Confirmed, "</br>",
-                       "<b>Cases in 5 days</b>", round(FULL_MAP_DATA_states$Five_day_predication,0), "</br>",
+                       "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA_states$Five_day_predication,0), "</br>",
                        "<b>Deaths:</b>", FULL_MAP_DATA_states$Deaths, "</br>",
                        "<b>Growth rate:</b>", round(FULL_MAP_DATA_states$growth,1),
                        "%  per day", "</br>",
@@ -843,7 +843,7 @@ server <- function(input, output) {
       
       content <- paste("<font size='4'> <b>",FULL_MAP_DATA_states$Province_State,"</b> </font>","</br>",
                        "<b>Cases:</b>",FULL_MAP_DATA_states$Confirmed, "</br>",
-                       "<b>Cases in 5 days</b>", round(FULL_MAP_DATA_states$Five_day_predication,0), "</br>",
+                       "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA_states$Five_day_predication,0), "</br>",
                        "<b>Deaths:</b>", FULL_MAP_DATA_states$Deaths, "</br>",
                        "<b>Growth rate:</b>", round(FULL_MAP_DATA_states$growth,1),
                        "%  per day", "</br>",
@@ -892,7 +892,7 @@ server <- function(input, output) {
       
       content <- paste("<font size='4'> <b>",FULL_MAP_DATA_states$Province_State,"</b> </font>","</br>",
                        "<b>Cases:</b>",FULL_MAP_DATA_states$Confirmed, "</br>",
-                       "<b>Cases in 5 days</b>", round(FULL_MAP_DATA_states$Five_day_predication,0), "</br>",
+                       "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA_states$Five_day_predication,0), "</br>",
                        "<b>Deaths:</b>", FULL_MAP_DATA_states$Deaths, "</br>",
                        "<b>Growth rate:</b>", round(FULL_MAP_DATA_states$growth,1),
                        "%  per day", "</br>",
@@ -946,7 +946,7 @@ server <- function(input, output) {
         
         content <- paste("<font size='4'> <b>",FULL_MAP_DATA_counties$Admin2,"</b> </font>","</br>",
                          "<b>Cases:</b>",FULL_MAP_DATA_counties$Confirmed, "</br>",
-                         "<b>Cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
+                         "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
                          "<b>Deaths:</b>", FULL_MAP_DATA_counties$Deaths, "</br>",
                          "<b>Growth rate:</b>", round(FULL_MAP_DATA_counties$growth,1),
                          "%  per day", "</br>",
@@ -959,7 +959,7 @@ server <- function(input, output) {
           addCircles(radius = ~input$scale*(200 + 800*sqrt(Confirmed)), 
                      color = "red",weight = 1,fillOpacity = 0.05)%>%
           addCircles(radius = ~input$scale*(200 + 800*sqrt(Five_day_predication)), 
-                           color = "red",weight = 2,fillOpacity = 0.01) %>%
+                           color = "red",weight = 0.75,fillOpacity = 0.01) %>%
           addCircles(radius = ~input$scale*(200 + 800*sqrt(Confirmed)),
                            color = "lightgrey",stroke = FALSE, fillOpacity = 0.01, popup = content)#%>%
           #addCircles(radius = 200,
@@ -994,7 +994,7 @@ server <- function(input, output) {
         
         content <- paste("<font size='4'> <b>",FULL_MAP_DATA_counties$Admin2,"</b> </font>","</br>",
                          "<b>Cases:</b>",FULL_MAP_DATA_counties$Confirmed, "</br>",
-                         "<b>Cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
+                         "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
                          "<b>Deaths:</b>", FULL_MAP_DATA_counties$Deaths, "</br>",
                          "<b>Growth rate:</b>", round(FULL_MAP_DATA_counties$growth,1),
                          "%  per day", "</br>",
@@ -1007,7 +1007,7 @@ server <- function(input, output) {
           addCircles(radius = ~input$scale*(200 + 800*sqrt(Confirmed)), 
                      color = "red",weight = 1,fillOpacity = 0.05)%>%
           addCircles(radius = ~input$scale*(200 + 800*sqrt(Five_day_predication)), 
-                     color = "red",weight = 2,fillOpacity = 0.01) %>%
+                     color = "red",weight = 0.75,fillOpacity = 0.01) %>%
           addCircles(radius = ~input$scale*(200 + 800*sqrt(Confirmed)),
                      color = "lightgrey",stroke = FALSE, fillOpacity = 0.01, popup = content)#%>%
         #addCircles(radius = 200,
@@ -1043,7 +1043,7 @@ server <- function(input, output) {
         
         content <- paste("<font size='4'> <b>",FULL_MAP_DATA_counties$Admin2,"</b> </font>","</br>",
                          "<b>Cases:</b>",FULL_MAP_DATA_counties$Confirmed, "</br>",
-                         "<b>Cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
+                         "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
                          "<b>Deaths:</b>", FULL_MAP_DATA_counties$Deaths, "</br>",
                          "<b>Growth rate:</b>", round(FULL_MAP_DATA_counties$growth,1),
                          "%  per day", "</br>",
@@ -1056,7 +1056,7 @@ server <- function(input, output) {
           addCircles(radius = ~input$scale*(200 + 800*sqrt(Confirmed)), 
                      color = "red",weight = 1,fillOpacity = 0.05)%>%
           addCircles(radius = ~input$scale*(200 + 800*sqrt(Five_day_predication)), 
-                     color = "red",weight = 2,fillOpacity = 0.01) %>%
+                     color = "red",weight = 0.75,fillOpacity = 0.01) %>%
           addCircles(radius = ~input$scale*(200 + 800*sqrt(Confirmed)),
                      color = "lightgrey",stroke = FALSE, fillOpacity = 0.01, popup = content)#%>%
         #addCircles(radius = 200,
@@ -1090,7 +1090,7 @@ server <- function(input, output) {
         
         content <- paste("<font size='4'> <b>",FULL_MAP_DATA_counties$Admin2,"</b> </font>","</br>",
                          "<b>Cases:</b>",FULL_MAP_DATA_counties$Confirmed, "</br>",
-                         "<b>Cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
+                         "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
                          "<b>Deaths:</b>", FULL_MAP_DATA_counties$Deaths, "</br>",
                          "<b>Growth rate:</b>", round(FULL_MAP_DATA_counties$growth,1),
                          "%  per day", "</br>",
@@ -1101,7 +1101,7 @@ server <- function(input, output) {
         proxy %>% addCircles(radius = ~input$scale*(750 + 1000*growth), 
                              color = ~pal(growth),weight = 1,fillOpacity = 0.5)%>%
           addCircles(radius = ~input$scale*(750 + 1000*growth), 
-                     color = "red",weight = 1,fillOpacity = 0.05)%>%
+                     color = "red",weight = 0.75,fillOpacity = 0.05)%>%
           addCircles(radius = ~input$scale*(750 + 1000*growth),
                      color = "lightgrey",stroke = FALSE, fillOpacity = 0.01, popup = content)#%>%
         #addCircles(radius = 200,
@@ -1135,7 +1135,7 @@ server <- function(input, output) {
         
         content <- paste("<font size='4'> <b>",FULL_MAP_DATA_counties$Admin2,"</b> </font>","</br>",
                          "<b>Cases:</b>",FULL_MAP_DATA_counties$Confirmed, "</br>",
-                         "<b>Cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
+                         "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
                          "<b>Deaths:</b>", FULL_MAP_DATA_counties$Deaths, "</br>",
                          "<b>Growth rate:</b>", round(FULL_MAP_DATA_counties$growth,1),
                          "%  per day", "</br>",
@@ -1182,7 +1182,7 @@ server <- function(input, output) {
         
         content <- paste("<font size='4'> <b>",FULL_MAP_DATA_counties$Admin2,"</b> </font>","</br>",
                          "<b>Cases:</b>",FULL_MAP_DATA_counties$Confirmed, "</br>",
-                         "<b>Cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
+                         "<b>Predicted cases in 5 days</b>", round(FULL_MAP_DATA_counties$Five_day_predication,0), "</br>",
                          "<b>Deaths:</b>", FULL_MAP_DATA_counties$Deaths, "</br>",
                          "<b>Growth rate:</b>", round(FULL_MAP_DATA_counties$growth,1),
                          "%  per day", "</br>",
