@@ -30,7 +30,7 @@ FULL_MAP_DATA <- read.csv("data/FULL_DATA.csv")
 
 
 # update this daily
-dates <- seq(as.Date("2020-1-22"), as.Date("2020-03-27"), by="days")
+dates <- seq(as.Date("2020-1-22"), as.Date("2020-03-30"), by="days")
 
 
 COVID_19_t_series_dates <- COVID_19_t_series
@@ -50,13 +50,13 @@ df <- FULL_MAP_DATA
 
 print(FULL_MAP_DATA$date)
 
-FULL_MAP_DATA_states <- subset(df, Admin2 == "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-28" & Confirmed > 1 )
+FULL_MAP_DATA_states <- subset(df, Admin2 == "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-30" & Confirmed > 1 )
 
 print(FULL_MAP_DATA_states)
 
 
 
-FULL_MAP_DATA_counties <- subset(df, Admin2 != "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-28" & Confirmed > 1 )
+FULL_MAP_DATA_counties <- subset(df, Admin2 != "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-30" & Confirmed > 1 )
 
 #print(FULL_MAP_DATA_counties)
 
@@ -329,14 +329,14 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                                       is measured here as 
                                       a percentage increase per day. For example, if a state had a growth rate of
                                       100% the number of cases would double every day. The fastest rates of growth 
-                                      currently are in Missouri and West Viriginia at 44%.
+                                      currently are in  West Viriginia at 44%.
                                       "),
                              helpText("
                                       The outer ring around the markers is proportional to the number of
                                       cases there will be in five days if current rates of growth continue.
                                       "),
                              helpText("
-                                      The data presented here is from The Johns Hoptkins Covid research program and can be
+                                      The data presented here is from The Johns Hopkins Covid research program and can be
                                       accessses on git hub at: https://github.com/CSSEGISandData/COVID-19
                                       " ),
                              
