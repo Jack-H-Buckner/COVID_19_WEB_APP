@@ -50,13 +50,13 @@ df <- FULL_MAP_DATA
 
 print(FULL_MAP_DATA$date)
 
-FULL_MAP_DATA_states <- subset(df, Admin2 == "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-30" & Confirmed > 1 )
+FULL_MAP_DATA_states <- subset(df, Admin2 == "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-04-01" & Confirmed > 1 )
 
 print(FULL_MAP_DATA_states)
 
 
 
-FULL_MAP_DATA_counties <- subset(df, Admin2 != "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-03-30" & Confirmed > 1 )
+FULL_MAP_DATA_counties <- subset(df, Admin2 != "Total" &Admin2 != "Unassigned" & as.character(date) == "2020-04-01" & Confirmed > 1 )
 
 #print(FULL_MAP_DATA_counties)
 
