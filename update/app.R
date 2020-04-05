@@ -30,7 +30,7 @@ FULL_MAP_DATA <- read.csv("data/FULL_DATA.csv")
 
 
 # update this daily
-dates <- seq(as.Date("2020-1-22"), as.Date("2020-03-30"), by="days")
+dates <- seq(as.Date("2020-1-22"), as.Date("2020-04-04"), by="days")
 
 
 COVID_19_t_series_dates <- COVID_19_t_series
@@ -329,7 +329,7 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                                       is measured here as 
                                       a percentage increase per day. For example, if a state had a growth rate of
                                       100% the number of cases would double every day. The fastest rates of growth 
-                                      currently are in  West Viriginia at 44%.
+                                      currently are in Idaho at 25%.
                                       "),
                              helpText("
                                       The outer ring around the markers is proportional to the number of
